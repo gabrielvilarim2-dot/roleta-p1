@@ -13,8 +13,8 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #ffffff, #e5e5e5);
-      color: #1f2937;
+      background: radial-gradient(circle at top, #1f2933, #111111);
+      color: #f9fafb;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -29,11 +29,11 @@
     }
 
     .card {
-      background: rgba(255,255,255, 0.9);
+      background: rgba(15, 23, 42, 0.95);
       border-radius: 20px;
       padding: 20px 16px 24px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.3);
     }
 
     .logo {
@@ -48,12 +48,11 @@
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 4px;
-      color: #111;
     }
 
     .subtitle {
       font-size: 0.9rem;
-      color: #333;
+      color: #9ca3af;
       margin-bottom: 16px;
     }
 
@@ -83,8 +82,8 @@
       inset: 0;
       margin: auto;
       border-radius: 50%;
-      border: 6px solid #444;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 6px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.8);
       transition: transform 4s cubic-bezier(.17,.67,.24,1.02);
       overflow: hidden;
     }
@@ -99,8 +98,9 @@
       border-radius: 50%;
       z-index: 3;
       overflow: hidden;
-      border: 3px solid #fff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      border: 3px solid #f9fafb;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+      background: #000;
     }
 
     .wheel-center img {
@@ -113,19 +113,20 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
+      z-index: 2;
     }
 
     .wheel-label {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 90px;
       transform-origin: center center;
-      font-size: 0.7rem;
+      width: 80px;
+      font-size: 0.65rem;
       font-weight: 600;
       text-align: center;
-      color: #fff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      color: #f9fafb;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
       padding: 0 4px;
     }
 
@@ -145,7 +146,7 @@
     }
 
     .btn-spin:disabled {
-      opacity: 0.6;
+      opacity: 0.7;
       cursor: not-allowed;
       box-shadow: none;
     }
@@ -155,7 +156,6 @@
       font-size: 1rem;
       font-weight: 600;
       min-height: 24px;
-      color: #111;
     }
 
     .result strong {
@@ -171,7 +171,7 @@
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #555;
+      color: #9ca3af;
       margin-bottom: 4px;
     }
 
@@ -180,26 +180,42 @@
       font-size: 0.85rem;
       max-height: 140px;
       overflow-y: auto;
+      padding-right: 4px;
     }
 
     .prize-list li {
       padding: 4px 8px;
       border-radius: 999px;
       margin-bottom: 4px;
-      background: #f7f7f7;
-      border: 1px solid #ddd;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid transparent;
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      gap: 6px;
+    }
+
+    .prize-list li span.label {
+      flex: 1;
+      color: #e5e7eb;
+    }
+
+    .prize-list li span.tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      opacity: 0.8;
     }
 
     .prize-list li.active {
-      background: #e7ffe7;
       border-color: #22c55e;
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
     }
 
-    .prize-list li .tag {
-      font-size: 0.7rem;
-      color: #666;
+    .prize-list li.active span.label {
+      color: #bbf7d0;
+      font-weight: 600;
     }
 
     @media (max-width: 360px) {
@@ -208,8 +224,8 @@
         height: 220px;
       }
       .wheel-label {
+        width: 70px;
         font-size: 0.6rem;
-        width: 80px;
       }
     }
   </style>
@@ -218,7 +234,8 @@
   <div class="app">
     <div class="card">
 
-      <img src="logo-p1.png" class="logo" />
+      <!-- mesma imagem do centro -->
+      <img src="wheel-center.png" alt="P1 Auto Recife" class="logo" />
 
       <h1 class="title">Gire e ganhe um prêmio na P1!</h1>
       <p class="subtitle" id="subtitle">Toque para girar e descobrir seu prêmio!</p>
@@ -229,14 +246,16 @@
         <div class="wheel" id="wheel">
           <div class="wheel-labels" id="wheelLabels"></div>
 
-          <!-- IMAGEM no centro da roleta -->
           <div class="wheel-center">
             <img src="wheel-center.png" alt="Centro da Roleta">
           </div>
         </div>
       </div>
 
-      <button class="btn-spin" id="spinButton">🎰 Girar agora</button>
+      <button class="btn-spin" id="spinButton">
+        🎰 Girar agora
+      </button>
+
       <div class="result" id="resultText"></div>
 
       <div class="prize-list-wrapper">
@@ -247,148 +266,199 @@
     </div>
   </div>
 
-<script>
-  const prizes = [
-    "Lavagem simples grátis",
-    "Lavagem completa grátis",
-    "Desconto de R$ 200 na entrada",
-    "Desconto de R$ 300 na entrada",
-    "Brinde P1 (boné / camisa)",
-    "Voucher de R$ 100 em serviços",
-    "Tanque com 20L de combustível",
-    "R$ 1.000 no PIX"
-  ];
+  <script>
+    // PRÊMIOS
+    const prizes = [
+      "Lavagem simples grátis",
+      "Lavagem completa grátis",
+      "Desconto de R$ 200 na entrada",
+      "Desconto de R$ 300 na entrada",
+      "Brinde P1 (boné / camisa)",
+      "Voucher de R$ 100 em serviços",
+      "Tanque com 20L de combustível",
+      "R$ 1.000 no PIX" // prêmio raro (0,1%), visual como prêmio normal
+    ];
 
-  const rareChance = 0.001;
-  const commonChance = (1 - rareChance) / (prizes.length - 1);
-  const probabilities = prizes.map((_, i) => i === prizes.length - 1 ? rareChance : commonChance);
+    // Probabilidades – último prêmio com 0,1%
+    const rareChance = 0.001; // 0,1%
+    const commonChance = (1 - rareChance) / (prizes.length - 1);
+    const probabilities = prizes.map((_, idx) =>
+      idx === prizes.length - 1 ? rareChance : commonChance
+    );
 
-  const wheel = document.getElementById("wheel");
-  const wheelLabels = document.getElementById("wheelLabels");
-  const spinButton = document.getElementById("spinButton");
-  const resultText = document.getElementById("resultText");
-  const prizeListEl = document.getElementById("prizeList");
-  const subtitleEl = document.getElementById("subtitle");
+    const wheel = document.getElementById("wheel");
+    const wheelLabels = document.getElementById("wheelLabels");
+    const spinButton = document.getElementById("spinButton");
+    const resultText = document.getElementById("resultText");
+    const prizeListEl = document.getElementById("prizeList");
+    const subtitleEl = document.getElementById("subtitle");
 
-  let isSpinning = false;
-  let currentRotation = 0;
+    let isSpinning = false;
+    let currentRotation = 0;
 
-  const STORAGE_KEY = "p1-roleta-premiada-v2";
-  const ONE_HOUR = 3600000;
+    const STORAGE_KEY = "p1-roleta-premiada-v3";
+    const ONE_HOUR = 60 * 60 * 1000;
 
-  function getRandomPrizeIndex() {
-    const r = Math.random();
-    let acc = 0;
-    for (let i = 0; i < probabilities.length; i++) {
-      acc += probabilities[i];
-      if (r <= acc) return i;
+    function getRandomPrizeIndex() {
+      const r = Math.random();
+      let acc = 0;
+      for (let i = 0; i < probabilities.length; i++) {
+        acc += probabilities[i];
+        if (r <= acc) return i;
+      }
+      return probabilities.length - 1;
     }
-  }
 
-  function drawWheel() {
-    const segmentAngle = 360 / prizes.length;
-    const colors = ["#f97316","#e11d48","#22c55e","#3b82f6","#a855f7","#ec4899","#14b8a6","#facc15"];
-    const gradient = prizes.map((_, i) => {
-      const start = i * segmentAngle;
-      const end = (i + 1) * segmentAngle;
-      return `${colors[i % colors.length]} ${start}deg ${end}deg`;
-    });
+    function drawWheel() {
+      const segmentAngle = 360 / prizes.length;
+      const colors = [
+        "#f97316",
+        "#e11d48",
+        "#22c55e",
+        "#3b82f6",
+        "#a855f7",
+        "#ec4899",
+        "#14b8a6",
+        "#facc15"
+      ];
 
-    wheel.style.background = `conic-gradient(${gradient.join(",")})`;
-    wheelLabels.innerHTML = "";
+      const gradientParts = prizes.map((_, i) => {
+        const start = i * segmentAngle;
+        const end = (i + 1) * segmentAngle;
+        return `${colors[i % colors.length]} ${start}deg ${end}deg`;
+      });
 
-    prizes.forEach((p, i) => {
-      const angle = i * segmentAngle + segmentAngle / 2;
-      const label = document.createElement("div");
-      label.className = "wheel-label";
-      label.textContent = p;
-      label.style.transform =
-        `rotate(${angle}deg) translate(-50%, -105px) rotate(${-angle}deg)`;
-      wheelLabels.appendChild(label);
-    });
+      wheel.style.background = `conic-gradient(${gradientParts.join(",")})`;
+      wheelLabels.innerHTML = "";
 
-    prizeListEl.innerHTML = "";
-    prizes.forEach((p, i) => {
-      const li = document.createElement("li");
-      li.innerHTML = `<span>${p}</span><span class="tag">${i === prizes.length - 1 ? "RARO (0,1%)" : "PRÊMIO"}</span>`;
-      prizeListEl.appendChild(li);
-    });
-  }
+      // textos na roleta (reposicionados)
+      prizes.forEach((p, i) => {
+        const angle = i * segmentAngle + segmentAngle / 2;
+        const label = document.createElement("div");
+        label.className = "wheel-label";
+        label.textContent = p;
 
-  function highlightPrize(i) {
-    prizeListEl.querySelectorAll("li").forEach((el, idx) => {
-      el.classList.toggle("active", idx === i);
-    });
-  }
+        // gira até o segmento, anda para fora e des-gira o texto
+        label.style.transform =
+          `rotate(${angle}deg) translate(0, -115px) rotate(${-angle}deg)`;
 
-  function saveSpin(i) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      prize: i,
-      time: Date.now()
-    }));
-  }
+        wheelLabels.appendChild(label);
+      });
 
-  function loadSpin() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : null;
-  }
+      // lista de prêmios embaixo
+      prizeListEl.innerHTML = "";
+      prizes.forEach((p) => {
+        const li = document.createElement("li");
+        const spanLabel = document.createElement("span");
+        spanLabel.className = "label";
+        spanLabel.textContent = p;
 
-  function applySaved() {
-    const saved = loadSpin();
-    if (!saved) return;
+        const spanTag = document.createElement("span");
+        spanTag.className = "tag";
+        spanTag.textContent = "PRÊMIO"; // mesmo texto pra todos, sem "Raro"
 
-    const diff = Date.now() - saved.time;
-    if (diff < ONE_HOUR) {
-      showResult(saved.prize);
+        li.appendChild(spanLabel);
+        li.appendChild(spanTag);
+        prizeListEl.appendChild(li);
+      });
+    }
+
+    function highlightPrize(index) {
+      const items = prizeListEl.querySelectorAll("li");
+      items.forEach((li, i) => {
+        li.classList.toggle("active", i === index);
+      });
+    }
+
+    function showPrizeResult(index) {
+      const prize = prizes[index];
+      resultText.innerHTML = `Você ganhou: <strong>${prize}</strong> 🎉`;
+      highlightPrize(index);
+    }
+
+    function saveSpinState(index) {
+      const state = {
+        lastPrizeIndex: index,
+        lastSpinTime: Date.now()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function loadSpinState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function applyExistingState() {
+      const state = loadSpinState();
+      if (!state) return;
+
+      const diff = Date.now() - state.lastSpinTime;
+      if (diff < ONE_HOUR) {
+        const idx = state.lastPrizeIndex;
+        showPrizeResult(idx);
+        spinButton.disabled = true;
+        spinButton.textContent = "⏳ Você já girou";
+        subtitleEl.textContent = "Você só pode girar 1 vez por hora.";
+      } else {
+        spinButton.disabled = false;
+        spinButton.textContent = "🎰 Girar agora";
+      }
+    }
+
+    function spin() {
+      if (isSpinning) return;
+
+      const state = loadSpinState();
+      if (state && (Date.now() - state.lastSpinTime < ONE_HOUR)) {
+        applyExistingState();
+        return;
+      }
+
+      isSpinning = true;
       spinButton.disabled = true;
-      spinButton.textContent = "⏳ Você já girou! Volte depois";
-      subtitleEl.textContent = "Você só pode girar 1 vez por hora.";
+      spinButton.textContent = "Girando...";
+      resultText.textContent = "";
+
+      const index = getRandomPrizeIndex();
+      const segmentAngle = 360 / prizes.length;
+      const middleAngle = index * segmentAngle + segmentAngle / 2;
+
+      const extraSpins = 4 + Math.floor(Math.random() * 4);
+
+      const currentMod = currentRotation % 360;
+      const targetMod = 360 - middleAngle;
+      const needed = (targetMod - currentMod + 360) % 360;
+
+      const finalRotation = currentRotation + extraSpins * 360 + needed;
+      currentRotation = finalRotation;
+
+      wheel.style.transform = `rotate(${finalRotation}deg)`;
+
+      const onTransitionEnd = () => {
+        wheel.removeEventListener("transitionend", onTransitionEnd);
+        isSpinning = false;
+
+        saveSpinState(index);
+        showPrizeResult(index);
+
+        spinButton.disabled = true;
+        spinButton.textContent = "⏳ Você já girou";
+        subtitleEl.textContent = "Você só pode girar 1 vez por hora.";
+      };
+
+      wheel.addEventListener("transitionend", onTransitionEnd);
     }
-  }
 
-  function showResult(i) {
-    resultText.innerHTML = `Você ganhou: <strong>${prizes[i]}</strong> 🎉`;
-    highlightPrize(i);
-  }
+    spinButton.addEventListener("click", spin);
 
-  function spin() {
-    if (isSpinning) return;
-
-    const saved = loadSpin();
-    if (saved && (Date.now() - saved.time < ONE_HOUR)) return applySaved();
-
-    isSpinning = true;
-    spinButton.disabled = true;
-    spinButton.textContent = "Girando...";
-
-    const index = getRandomPrizeIndex();
-    const segmentAngle = 360 / prizes.length;
-    const middleAngle = index * segmentAngle + segmentAngle / 2;
-    const spins = 4 + Math.floor(Math.random() * 4);
-
-    const current = currentRotation % 360;
-    const target = 360 - middleAngle;
-    const needed = (target - current + 360) % 360;
-
-    currentRotation += spins * 360 + needed;
-    wheel.style.transform = `rotate(${currentRotation}deg)`;
-
-    wheel.addEventListener("transitionend", () => {
-      showResult(index);
-      saveSpin(index);
-
-      spinButton.textContent = "⏳ Você já girou! Volte em 1 hora";
-      subtitleEl.textContent = "Você só pode girar uma vez por hora.";
-
-      isSpinning = false;
-    }, { once: true });
-  }
-
-  spinButton.addEventListener("click", spin);
-
-  drawWheel();
-  applySaved();
-</script>
-
+    drawWheel();
+    applyExistingState();
+  </script>
 </body>
 </html>

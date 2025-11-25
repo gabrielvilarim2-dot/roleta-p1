@@ -120,7 +120,6 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform-origin: center center;
       width: 90px;
       font-size: 0.65rem;
       font-weight: 600;
@@ -130,6 +129,7 @@
       padding: 0 4px;
       line-height: 1.1;
       word-break: break-word;
+      transform: translate(-50%, -50%); /* centraliza em cima do ponto calculado */
     }
 
     .btn-spin {
@@ -249,7 +249,7 @@
           <div class="wheel-labels" id="wheelLabels"></div>
 
           <div class="wheel-center">
-            <img src="logo-p1.png" alt="Centro da Roleta">
+            <img src="wheel-center.png" alt="Centro da Roleta">
           </div>
         </div>
       </div>
@@ -298,7 +298,7 @@
     let isSpinning = false;
     let currentRotation = 0;
 
-    const STORAGE_KEY = "p1-roleta-premiada-v4";
+    const STORAGE_KEY = "p1-roleta-premiada-v5";
     const ONE_HOUR = 60 * 60 * 1000;
 
     function getRandomPrizeIndex() {
@@ -334,18 +334,23 @@
       wheel.style.background = `conic-gradient(${gradientParts.join(",")})`;
       wheelLabels.innerHTML = "";
 
-      // textos na roleta – agora girando com a fatia (melhor alinhamento)
-      const radius = 105; // distância do centro para o texto
+      // textos na roleta – baseados no CENTRO da fatia, via seno/cosseno
+      const radiusPercent = 38; // distância do centro pra borda (em % do diâmetro)
       prizes.forEach((p, i) => {
-        const angle = i * segmentAngle + segmentAngle / 2;
+        const midAngleDeg = i * segmentAngle + segmentAngle / 2;
+        // conic-gradient começa na direita (0°), então aqui o 0° é na direita também.
+        // Vamos converter pra radiano e usar isso pra posição.
+        const angleRad = (midAngleDeg - 90) * Math.PI / 180; // -90 pra começar em cima
+
+        const x = 50 + radiusPercent * Math.cos(angleRad);
+        const y = 50 + radiusPercent * Math.sin(angleRad);
 
         const label = document.createElement("div");
         label.className = "wheel-label";
         label.textContent = p;
 
-        // gira junto com a fatia e posiciona na borda interna da roleta
-        label.style.transform =
-          `rotate(${angle}deg) translate(0, -${radius}px)`;
+        label.style.left = x + "%";
+        label.style.top = y + "%";
 
         wheelLabels.appendChild(label);
       });
@@ -360,7 +365,7 @@
 
         const spanTag = document.createElement("span");
         spanTag.className = "tag";
-        spanTag.textContent = "PRÊMIO"; // igual pra todos
+        spanTag.textContent = "PRÊMIO";
 
         li.appendChild(spanLabel);
         li.appendChild(spanTag);

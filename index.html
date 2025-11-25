@@ -271,13 +271,13 @@
   <script>
     // PRÊMIOS
     const prizes = [
-      "Lavagem simples grátis",
       "Lavagem completa grátis",
-      "Desconto de R$ 200 na entrada",
-      "Desconto de R$ 300 na entrada",
-      "Brinde P1 (boné / camisa)",
-      "Voucher de R$ 100 em serviços",
-      "Tanque com 20L de combustível",
+      "Tanque Cheio",
+      "Troca de óleo",
+      "Rodízio pra 2",
+      "Vidro fumê",
+      "Caixa de som Bluetooth",
+      "1 Ano de Streaming",
       "R$ 1.000 no PIX" // prêmio raro (0,1%), visual como prêmio normal
     ];
 
@@ -414,7 +414,7 @@
         showPrizeResult(idx);
         spinButton.disabled = true;
         spinButton.textContent = "⏳ Você já girou";
-        subtitleEl.textContent = "Você só pode girar 1 vez por hora.";
+        subtitleEl.textContent = "Valido no Big Feirão ao comprar um carro na P1";
       } else {
         spinButton.disabled = false;
         spinButton.textContent = "🎰 Girar agora";
@@ -459,7 +459,7 @@
 
         spinButton.disabled = true;
         spinButton.textContent = "⏳ Você já girou";
-        subtitleEl.textContent = "Você só pode girar 1 vez por hora.";
+        subtitleEl.textContent = "Valido no Big Feirão ao comprar um carro na P1";
       };
 
       wheel.addEventListener("transitionend", onTransitionEnd);
